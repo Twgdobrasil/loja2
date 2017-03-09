@@ -1,0 +1,72 @@
+[19-Jan-2017 15:04:07 America/New_York] CSRF state token does not match one provided.
+[19-Jan-2017 15:04:10 America/New_York] CSRF state token does not match one provided.
+[20-Jan-2017 11:42:21 America/New_York] PHP Fatal error:  Call to a member function result_array() on boolean in /home/clicknal/public_html/loja/application/controllers/Vendor.php on line 1426
+[22-Jan-2017 16:29:06 America/New_York] PHP Fatal error:  Call to a member function result_array() on boolean in /home/clicknal/public_html/loja/application/models/Crud_model.php on line 311
+[22-Jan-2017 16:29:27 America/New_York] PHP Fatal error:  Call to a member function result_array() on boolean in /home/clicknal/public_html/loja/application/models/Crud_model.php on line 311
+[22-Jan-2017 16:31:10 America/New_York] PHP Fatal error:  Call to a member function result_array() on boolean in /home/clicknal/public_html/loja/application/models/Crud_model.php on line 311
+[22-Jan-2017 16:31:41 America/New_York] PHP Fatal error:  Call to a member function result_array() on boolean in /home/clicknal/public_html/loja/application/models/Crud_model.php on line 311
+[23-Jan-2017 11:01:41 America/New_York] PHP Fatal error:  Call to a member function result_array() on boolean in /home/clicknal/public_html/loja/application/models/Crud_model.php on line 311
+[23-Jan-2017 22:46:15 America/New_York] PHP Fatal error:  Out of memory (allocated 786432) (tried to allocate 5120 bytes) in /home/clicknal/public_html/loja/system/core/Output.php on line 567
+[23-Jan-2017 22:46:15 America/New_York] PHP Fatal error:  Out of memory (allocated 262144) (tried to allocate 3200 bytes) in /home/clicknal/public_html/loja/index.php on line 212
+[23-Jan-2017 22:46:15 America/New_York] PHP Fatal error:  Out of memory (allocated 1048576) (tried to allocate 12288 bytes) in /home/clicknal/public_html/loja/system/core/Input.php on line 630
+[23-Jan-2017 22:46:15 America/New_York] PHP Warning:  PHP Startup: Unable to load dynamic library '/usr/local/lib/php/extensions/no-debug-non-zts-20131226/pdo.so' - /usr/local/lib/php/extensions/no-debug-non-zts-20131226/pdo.so: failed to map segment from shared object: Cannot allocate memory in Unknown on line 0
+[23-Jan-2017 22:46:15 America/New_York] PHP Fatal error:  Out of memory (allocated 1572864) (tried to allocate 49152 bytes) in /home/clicknal/public_html/loja/application/controllers/Home.php on line 1818
+[23-Jan-2017 22:46:15 America/New_York] PHP Fatal error:  Out of memory (allocated 262144) (tried to allocate 3200 bytes) in /home/clicknal/public_html/loja/index.php on line 212
+[23-Jan-2017 22:46:15 America/New_York] PHP Fatal error:  Out of memory (allocated 2359296) (tried to allocate 1920 bytes) in /home/clicknal/public_html/loja/system/database/DB.php on line 71
+[23-Jan-2017 22:46:15 America/New_York] PHP Fatal error:  Out of memory (allocated 3145728) (tried to allocate 72 bytes) in /home/clicknal/public_html/loja/application/views/errors/html/error_php.php on line 17
+[23-Jan-2017 22:46:15 America/New_York] PHP Fatal error:  Out of memory (allocated 1310720) (tried to allocate 12288 bytes) in /home/clicknal/public_html/loja/application/controllers/Home.php on line 763
+[23-Jan-2017 22:46:16 America/New_York] PHP Fatal error:  Out of memory (allocated 524288) (tried to allocate 12288 bytes) in /home/clicknal/public_html/loja/system/core/compat/hash.php on line 154
+[23-Jan-2017 22:46:16 America/New_York] PHP Fatal error:  Out of memory (allocated 2359296) (tried to allocate 1280 bytes) in /home/clicknal/public_html/loja/system/database/DB.php on line 58
+[23-Jan-2017 22:46:16 America/New_York] PHP Fatal error:  Out of memory (allocated 1310720) (tried to allocate 3072 bytes) in /home/clicknal/public_html/loja/application/controllers/Home.php on line 751
+[23-Jan-2017 22:46:16 America/New_York] PHP Fatal error:  Call to a member function query() on boolean in /home/clicknal/public_html/loja/system/database/drivers/mysqli/mysqli_driver.php on line 221
+[01-Feb-2017 11:37:14 America/New_York] PHP Fatal error:  Call to a member function result_array() on boolean in /home/clicknal/public_html/loja/application/controllers/Admin.php on line 3711
+[01-Feb-2017 11:42:53 America/New_York] PHP Fatal error:  Call to a member function result_array() on boolean in /home/clicknal/public_html/loja/application/controllers/Admin.php on line 3711
+[01-Feb-2017 11:42:57 America/New_York] PHP Fatal error:  Call to a member function result_array() on boolean in /home/clicknal/public_html/loja/application/controllers/Admin.php on line 3711
+[01-Feb-2017 11:42:58 America/New_York] PHP Fatal error:  Call to a member function result_array() on boolean in /home/clicknal/public_html/loja/application/controllers/Admin.php on line 3711
+[01-Feb-2017 11:42:59 America/New_York] PHP Fatal error:  Call to a member function result_array() on boolean in /home/clicknal/public_html/loja/application/controllers/Admin.php on line 3711
+[01-Feb-2017 11:42:59 America/New_York] PHP Fatal error:  Call to a member function result_array() on boolean in /home/clicknal/public_html/loja/application/controllers/Admin.php on line 3711
+[01-Feb-2017 11:43:00 America/New_York] PHP Fatal error:  Call to a member function result_array() on boolean in /home/clicknal/public_html/loja/application/controllers/Admin.php on line 3711
+[01-Feb-2017 11:43:00 America/New_York] PHP Fatal error:  Call to a member function result_array() on boolean in /home/clicknal/public_html/loja/application/controllers/Admin.php on line 3711
+[01-Feb-2017 11:43:01 America/New_York] PHP Fatal error:  Call to a member function result_array() on boolean in /home/clicknal/public_html/loja/application/controllers/Admin.php on line 3711
+[01-Feb-2017 11:44:19 America/New_York] PHP Fatal error:  Call to a member function result_array() on boolean in /home/clicknal/public_html/loja/application/controllers/Admin.php on line 3711
+[01-Feb-2017 11:52:19 America/New_York] PHP Fatal error:  Call to a member function result_array() on boolean in /home/clicknal/public_html/loja/application/controllers/Admin.php on line 3711
+[01-Feb-2017 11:52:21 America/New_York] PHP Fatal error:  Call to a member function result_array() on boolean in /home/clicknal/public_html/loja/application/controllers/Admin.php on line 3711
+[01-Feb-2017 11:52:24 America/New_York] PHP Fatal error:  Call to a member function result_array() on boolean in /home/clicknal/public_html/loja/application/controllers/Admin.php on line 3711
+[01-Feb-2017 11:52:27 America/New_York] PHP Fatal error:  Call to a member function result_array() on boolean in /home/clicknal/public_html/loja/application/controllers/Admin.php on line 3711
+[01-Feb-2017 11:52:28 America/New_York] PHP Fatal error:  Call to a member function result_array() on boolean in /home/clicknal/public_html/loja/application/controllers/Admin.php on line 3711
+[01-Feb-2017 18:02:36 America/New_York] PHP Fatal error:  Call to a member function result_array() on boolean in /home/clicknal/public_html/loja/application/controllers/Admin.php on line 3711
+[01-Feb-2017 18:03:14 America/New_York] PHP Fatal error:  Call to a member function result_array() on boolean in /home/clicknal/public_html/loja/application/controllers/Admin.php on line 3711
+[01-Feb-2017 18:03:15 America/New_York] PHP Fatal error:  Call to a member function result_array() on boolean in /home/clicknal/public_html/loja/application/controllers/Admin.php on line 3711
+[02-Feb-2017 10:48:52 America/New_York] PHP Fatal error:  Call to a member function result_array() on boolean in /home/clicknal/public_html/loja/application/controllers/Vendor.php on line 1426
+[02-Feb-2017 10:48:58 America/New_York] PHP Fatal error:  Call to a member function result_array() on boolean in /home/clicknal/public_html/loja/application/controllers/Vendor.php on line 1426
+[06-Feb-2017 13:45:44 America/New_York] PHP Fatal error:  Call to a member function result_array() on boolean in /home/clicknal/public_html/loja/application/controllers/Vendor.php on line 1426
+[06-Feb-2017 13:45:50 America/New_York] PHP Fatal error:  Call to a member function result_array() on boolean in /home/clicknal/public_html/loja/application/controllers/Vendor.php on line 1426
+[08-Mar-2017 12:55:49 America/New_York] PHP Fatal error:  Call to undefined function phpdefined() in /home/clicknal/public_html/loja2/application/config/routes.php on line 1
+[08-Mar-2017 13:07:34 America/New_York] PHP Fatal error:  Call to undefined function phpdefined() in /home/clicknal/public_html/loja2/application/config/routes.php on line 1
+[08-Mar-2017 13:11:23 America/New_York] PHP Fatal error:  Call to undefined function phpdefined() in /home/clicknal/public_html/loja2/application/config/routes.php on line 1
+[08-Mar-2017 13:11:24 America/New_York] PHP Fatal error:  Call to undefined function phpdefined() in /home/clicknal/public_html/loja2/application/config/routes.php on line 1
+[08-Mar-2017 13:17:55 America/New_York] PHP Fatal error:  Call to undefined function phpdefined() in /home/clicknal/public_html/loja2/application/config/routes.php on line 1
+[08-Mar-2017 13:23:02 America/New_York] PHP Fatal error:  Call to undefined function phpdefined() in /home/clicknal/public_html/loja2/application/config/routes.php on line 1
+[08-Mar-2017 13:23:04 America/New_York] PHP Fatal error:  Call to undefined function phpdefined() in /home/clicknal/public_html/loja2/application/config/routes.php on line 1
+[08-Mar-2017 13:23:10 America/New_York] PHP Fatal error:  Call to undefined function phpdefined() in /home/clicknal/public_html/loja2/application/config/routes.php on line 1
+[08-Mar-2017 13:23:12 America/New_York] PHP Fatal error:  Call to undefined function phpdefined() in /home/clicknal/public_html/loja2/application/config/routes.php on line 1
+[08-Mar-2017 13:23:12 America/New_York] PHP Fatal error:  Call to undefined function phpdefined() in /home/clicknal/public_html/loja2/application/config/routes.php on line 1
+[08-Mar-2017 13:23:16 America/New_York] PHP Fatal error:  Call to undefined function phpdefined() in /home/clicknal/public_html/loja2/application/config/routes.php on line 1
+[08-Mar-2017 13:23:17 America/New_York] PHP Fatal error:  Call to undefined function phpdefined() in /home/clicknal/public_html/loja2/application/config/routes.php on line 1
+[08-Mar-2017 13:23:17 America/New_York] PHP Fatal error:  Call to undefined function phpdefined() in /home/clicknal/public_html/loja2/application/config/routes.php on line 1
+[08-Mar-2017 13:23:18 America/New_York] PHP Fatal error:  Call to undefined function phpdefined() in /home/clicknal/public_html/loja2/application/config/routes.php on line 1
+[08-Mar-2017 13:23:18 America/New_York] PHP Fatal error:  Call to undefined function phpdefined() in /home/clicknal/public_html/loja2/application/config/routes.php on line 1
+[08-Mar-2017 13:23:19 America/New_York] PHP Fatal error:  Call to undefined function phpdefined() in /home/clicknal/public_html/loja2/application/config/routes.php on line 1
+[08-Mar-2017 13:23:19 America/New_York] PHP Fatal error:  Call to undefined function phpdefined() in /home/clicknal/public_html/loja2/application/config/routes.php on line 1
+[08-Mar-2017 13:23:20 America/New_York] PHP Fatal error:  Call to undefined function phpdefined() in /home/clicknal/public_html/loja2/application/config/routes.php on line 1
+[08-Mar-2017 13:23:22 America/New_York] PHP Fatal error:  Call to undefined function phpdefined() in /home/clicknal/public_html/loja2/application/config/routes.php on line 1
+[08-Mar-2017 13:23:23 America/New_York] PHP Fatal error:  Call to undefined function phpdefined() in /home/clicknal/public_html/loja2/application/config/routes.php on line 1
+[08-Mar-2017 13:23:23 America/New_York] PHP Fatal error:  Call to undefined function phpdefined() in /home/clicknal/public_html/loja2/application/config/routes.php on line 1
+[08-Mar-2017 13:23:25 America/New_York] PHP Fatal error:  Call to undefined function phpdefined() in /home/clicknal/public_html/loja2/application/config/routes.php on line 1
+[08-Mar-2017 13:23:29 America/New_York] PHP Fatal error:  Call to undefined function phpdefined() in /home/clicknal/public_html/loja2/application/config/routes.php on line 1
+[08-Mar-2017 13:23:34 America/New_York] PHP Fatal error:  Call to undefined function phpdefined() in /home/clicknal/public_html/loja2/application/config/routes.php on line 1
+[08-Mar-2017 13:25:27 America/New_York] PHP Fatal error:  Call to undefined function phpdefined() in /home/clicknal/public_html/loja2/application/config/routes.php on line 1
+[08-Mar-2017 13:25:29 America/New_York] PHP Fatal error:  Call to undefined function phpdefined() in /home/clicknal/public_html/loja2/application/config/routes.php on line 1
+[08-Mar-2017 13:25:30 America/New_York] PHP Fatal error:  Call to undefined function phpdefined() in /home/clicknal/public_html/loja2/application/config/routes.php on line 1
+[08-Mar-2017 13:25:32 America/New_York] PHP Fatal error:  Call to undefined function phpdefined() in /home/clicknal/public_html/loja2/application/config/routes.php on line 1
+[08-Mar-2017 13:25:36 America/New_York] PHP Fatal error:  Call to undefined function phpdefined() in /home/clicknal/public_html/loja2/application/config/routes.php on line 1
