@@ -2203,8 +2203,34 @@ class Crud_model extends CI_Model
 			$this->db->where('type','data_all_vendors');
 			$this->db->update('general_settings',$data2);
 	}
+
+
+   function get_order($id_buyer) {
+
+    $query = $this->db->query('SELECT * FROM sale WHERE buyer = '.$id_buyer); 
+
+    return $query->result_array(); 
+
+
+   }
+    
+   function get_details($id_prod){
+       
+    $query = $this->db->query('SELECT title FROM product WHERE product_id = '.$id_prod);
+       
+    return $query->result_array();   
+       
+   } 
+    
+    function get_user_data($id_user){
+       
+    $query = $this->db->query('SELECT * FROM user WHERE user_id = '.$id_user);
+       
+    return $query->result_array();   
+       
+   }    
 	
-}
+} // Fim da Classe
 
 
 

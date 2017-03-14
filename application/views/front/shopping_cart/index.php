@@ -1,4 +1,5 @@
 <?php
+
 echo form_open(base_url() . 'index.php/home/cart_finish/go', array(
             'method' => 'post', 
             'enctype' => 'multipart/form-data', 
@@ -129,6 +130,7 @@ echo form_open(base_url() . 'index.php/home/cart_finish/go', array(
         $( "#visa" ).prop( "checked", false );
         $( "#mastercardd" ).prop( "checked", false );
         $( "#mastercard" ).prop( "checked", false );
+        $( "#pagseguro" ).prop( "checked", false );
         $( "#"+id ).prop( "checked", true );
     }
 	

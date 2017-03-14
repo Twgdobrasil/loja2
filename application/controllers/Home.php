@@ -18,6 +18,7 @@ class Home extends CI_Controller
         //$this->output->enable_profiler(TRUE);
         $this->load->database();
         $this->load->library('paypal');
+        $this->load->library('pagseguro');
         /*cache control*/
 		//ini_set("user_agent","My-Great-Marketplace-App");
 		$cache_time	 =  $this->db->get_where('general_settings',array('type' => 'cache_time'))->row()->value;
@@ -2125,12 +2126,18 @@ class Home extends CI_Controller
 			redirect(base_url() . 'index.php/home/', 'refresh');
 		}
 
+
         if($para1 == "orders"){
             $this->load->view('front/shopping_cart/order_set');  
         } elseif($para1 == "delivery_address"){
             $this->load->view('front/shopping_cart/delivery_address');  
         } elseif($para1 == "payments_options"){
-            $this->load->view('front/shopping_cart/payments_options');  
+        	
+        	
+        	$order['data'] = $this->crud_model->get_order(118);
+
+
+            $this->load->view('front/shopping_cart/payments_options',$order);  
         } else {
             $page_data['logger']     = $para1;
             $page_data['page_name']  = "shopping_cart";
@@ -2526,9 +2533,152 @@ class Home extends CI_Controller
 					$this->load->library('skrill', $config);
 					$this->skrill->pay();
 				}
-			}
+			}else if ($this->input->post('payment_type') == 'pagseguro') {
+				if ($para1 == 'go') {
+					
+                    //echo '<script> alert("Escolheu PagSeguro"); </script>'; 
+                    
+                    
+        header("access-control-allow-origin: https://pagseguro.uol.com.br");
+		header("Content-Type: text/html; charset=UTF-8",true);
+		date_default_timezone_set('America/Sao_Paulo');
+
+		//require_once("PagSeguro.class.php");
+		$PagSeguro = new PagSeguro();
+                    
+                    
+        //Tratando os dados do Carrinho            
+        
+        $adr = explode(',',$_POST['address1']);  // Separando a Rua do Nº (está em formato Json)                 
+        $prd = explode('{',$product_details); // Retirando Chaves da String (Formtao Json)
+        $prd = substr($prd[2],6,4); // Pegando o ID do produto do Carrinho
+        $prd = preg_replace('/(\'|")/','', $prd); // Retirando as aspas do ID do Produto do Carrinho
+                    
+        // Fazendo Select em Dados do Produto            
+        
+        $this->load->model('crud_model');            
+        $prd_name = $this->crud_model->get_details($prd); // Chamando método que traz o Título cadastrado do Produto          
+        
+        foreach($prd_name as $prd_title){
+            
+          $titprd = $prd_title['title'];
+            
+        }            
+                    
+        $cidade = $this->crud_model->get_user_data($this->session->userdata('user_id')); // Chamando método que traz os dados do Usuário que está comprando      
+        
+        foreach($cidade as $city){
+            
+          $cidade = $city['city'];
+          $uf =  $city['state'];   
+            
+        }            
+        
+                    
+        //Colocando o telefone no formato do XML do Pagseguro 
+        $phone = strlen($_POST['phone']);
+        
+        if($phone == 11){            
+                    
+        $ddd = substr($_POST['phone'],0,2);            
+        $tel_prefix = substr($_POST['phone'],2,5); 
+        $tel_sufix = substr($_POST['phone'],7,4);
+            
+        }else{
+            
+        $ddd = substr($_POST['phone'],0,2);            
+        $tel_prefix = substr($_POST['phone'],2,4); 
+        $tel_sufix = substr($_POST['phone'],6,4);    
             
         }
+        //var_dump($tel_sufix);
+                    
+        //echo '('.$ddd.')'.' '.$tel_prefix.' - '.$tel_sufix;
+        //exit;
+                    
+			
+		//EFETUAR PAGAMENTO	
+		$venda = array("codigo"=>$this->session->userdata('user_id'),
+					   "valor"=>$grand_total,
+					   "descricao"=>$titprd,
+					   "nome"=>$_POST['firstname'].' '.$_POST['lastname'],
+					   "email"=>$_POST['email'],
+					   "telefone"=>'('.$ddd.')'.' '.$tel_prefix.'-'.$tel_sufix,
+					   "rua"=>$adr[0],
+					   "numero"=>$adr[1],
+					   "bairro"=>$_POST['address2'],
+					   "cidade"=>$cidade,
+					   "estado"=>strtoupper($uf), //2 LETRAS MAIÚSCULAS
+					   "cep"=>$_POST['zip'],
+					   "codigo_pagseguro"=>"");
+             
+                    $data['buyer']             = $this->session->userdata('user_id');
+                    $data['product_details']   = $product_details;
+                    $data['shipping_address']  = json_encode($_POST);
+                    $data['vat']               = $vat;
+                    $data['vat_percent']       = $vat_per;
+                    $data['shipping']          = $shipping;
+                    $data['delivery_status']   = '[]';
+                    $data['payment_type']      = $para1;
+                    $data['payment_status']    = '[]';
+                    $data['payment_details']   = 'none';
+                    $data['grand_total']       = $grand_total;
+                    $data['sale_datetime']     = time();
+                    $data['delivary_datetime'] = '';
+					$data['data_venda']        = date('Y-m-d H:i:s');
+                    $paypal_email              = $this->crud_model->get_type_name_by_id('business_settings', '1', 'value');
+                    
+                    $this->db->insert('sale', $data);
+                    $sale_id           = $this->db->insert_id();
+                    $vendors = $this->crud_model->vendors_in_sale($sale_id);
+                    $delivery_status = array();
+                    $payment_status = array();
+                    foreach ($vendors as $p) {
+                        $delivery_status[] = array('vendor'=>$p,'status'=>'Pendente','delivery_time'=>'');
+                        $payment_status[] = array('vendor'=>$p,'status'=>'Em aberto');
+                    }
+                    if($this->crud_model->is_admin_in_sale($sale_id)){
+                        $delivery_status[] = array('admin'=>'','status'=>'Pendente','delivery_time'=>'');
+                        $payment_status[] = array('admin'=>'','status'=>'Em aberto');
+                    }
+                    $data['sale_code'] = date('Ym', $data['sale_datetime']) . $sale_id;
+                    $data['delivery_status'] = json_encode($delivery_status);
+                    $data['payment_status'] = json_encode($payment_status);
+                    $this->db->where('sale_id', $sale_id);
+                    $this->db->update('sale', $data);
+                    
+                    $this->session->set_userdata('sale_id', $sale_id);
+                    
+                    
+		$path_notificacao = base_url().'/index.php/home/notificacao_pagseguro/pedido/';
+					   
+		//$PagSeguro->executeCheckout($venda,$path_notificacao.$_GET['codigo']); // Com Transaction ID
+        $PagSeguro->executeCheckout($venda,$path_notificacao.$this->session->userdata('user_id')); // Sem Transaction ID
+            
+		//----------------------------------------------------------------------------
+
+
+		//RECEBER RETORNO
+		if( isset($_GET['transaction_id']) ){
+			$pagamento = $PagSeguro->getStatusByReference($_GET['codigo']);
+			
+			$pagamento->codigo_pagseguro = $_GET['transaction_id'];
+			if($pagamento->status==3 || $pagamento->status==4){
+				//ATUALIZAR DADOS DA VENDA, COMO DATA DO PAGAMENTO E STATUS DO PAGAMENTO
+				
+			}else{
+				//ATUALIZAR NA BASE DE DADOS
+			}
+				
+				}//Fim do segundo IF	
+
+                    
+                    
+                    
+				}
+			}
+            
+        } // FIM DO IF QUE VERIFICA SE O USUÁRIO ESTÁ LOGADO
 		else {
             //echo 'nope';
             redirect(base_url() . 'index.php/home/cart_checkout/need_login', 'refresh');
@@ -2871,6 +3021,94 @@ class Home extends CI_Controller
         $page_data['vendorurls']  = $vendorurls;
         $this->load->view('front/others/sitemap', $page_data);
     }
+
+    function pagseguro(){
+
+    	header("access-control-allow-origin: https://pagseguro.uol.com.br");
+		header("Content-Type: text/html; charset=UTF-8",true);
+		date_default_timezone_set('America/Sao_Paulo');
+
+		//require_once("PagSeguro.class.php");
+		$PagSeguro = new PagSeguro();
+			
+		//EFETUAR PAGAMENTO	
+		$venda = array("codigo"=>"1",
+					   "valor"=>100.00,
+					   "descricao"=>"VENDA DE OFERTA DO SITE",
+					   "nome"=>"Grupo Twg",
+					   "email"=>"fabiano@grupotwg.com.br",
+					   "telefone"=>"(11) 2038-8520",
+					   "rua"=>"Mateo Martins Cebantos",
+					   "numero"=>"169",
+					   "bairro"=>"Cidade Patriarca",
+					   "cidade"=>"São Paulo",
+					   "estado"=>"SP", //2 LETRAS MAIÚSCULAS
+					   "cep"=>"03548-030",
+					   "codigo_pagseguro"=>"");
+
+		$path_notificacao = base_url().'/index.php/home/notificacao_pagseguro/pedido/';
+					   
+		$PagSeguro->executeCheckout($venda,$path_notificacao.$_GET['codigo']);
+
+		//----------------------------------------------------------------------------
+
+
+		//RECEBER RETORNO
+		if( isset($_GET['transaction_id']) ){
+			$pagamento = $PagSeguro->getStatusByReference($_GET['codigo']);
+			
+			$pagamento->codigo_pagseguro = $_GET['transaction_id'];
+			if($pagamento->status==3 || $pagamento->status==4){
+				//ATUALIZAR DADOS DA VENDA, COMO DATA DO PAGAMENTO E STATUS DO PAGAMENTO
+				
+			}else{
+				//ATUALIZAR NA BASE DE DADOS
+			}
+				
+				}//Fim do segundo IF	
+
+
+
+
+    }// Fim da Função do Pagseguro
+
+
+    function notificacao_pagseguro(){
+
+    header("access-control-allow-origin: https://pagseguro.uol.com.br");
+	//require_once("PagSeguro.class.php");
+
+	if(isset($_POST['notificationType']) && $_POST['notificationType'] == 'transaction'){
+		$PagSeguro = new PagSeguro();
+		$response = $PagSeguro->executeNotification($_POST);
+		if( $response->status==3 || $response->status==4 ){
+        	//PAGAMENTO CONFIRMADO
+			//ATUALIZAR O STATUS NO BANCO DE DADOS
+			
+		}else{
+			//PAGAMENTO PENDENTE
+			echo $PagSeguro->getStatusText($PagSeguro->status);
+			}
+		}
+
+
+
+
+    } // Fim da Função de Notificação do Pagseguro
+    
+    function status_pagseguro(){
+        
+    //require_once("PagSeguro.class.php");
+
+	if(isset($_GET['reference'])){
+		$PagSeguro = new PagSeguro();
+		$P = $PagSeguro->getStatusByReference($_GET['reference']);
+		echo $PagSeguro->getStatusText($P->status);
+	}else{
+	    echo "Parâmetro \"reference\" não informado!";
+	}
+        
+ }// FIM DA FUNÇÃO STATUS_PAGSEGURO
     
 }
 

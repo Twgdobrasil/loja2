@@ -1,4 +1,18 @@
     <?php 
+        
+       
+        /*	var_dump($data);
+
+        foreach($data as $row){
+
+         	echo $row['payment_status'].'<br>';  
+
+         }  
+
+        //exit;*/
+
+
+
         $system_title = $this->db->get_where('general_settings',array('type' => 'system_title'))->row()->value;
         $total = $this->cart->total(); 
         if ($this->crud_model->get_type_name_by_id('business_settings', '3', 'value') == 'product_wise') { 
@@ -13,12 +27,14 @@
     <?php
         $p_set = $this->db->get_where('business_settings',array('type'=>'paypal_set'))->row()->value; 
         $c_set = $this->db->get_where('business_settings',array('type'=>'cash_set'))->row()->value; 
-        $s_set = $this->db->get_where('business_settings',array('type'=>'stripe_set'))->row()->value; 
-        
+        $s_set = $this->db->get_where('business_settings',array('type'=>'stripe_set'))->row()->value;
+        $pag_set = $this->db->get_where('business_settings',array('type'=>'pagseguro_set'))->row()->value;
+
+ 
     ?> 
 
 <div class="row">
-    <?php
+    <?php 
         if($p_set == 'ok'){ 
     ?>
     <div class="cc-selector col-sm-4">
@@ -28,62 +44,21 @@
                
         </label>
     </div>
+    
+   <!-- Inserindo Modalidade PagSeguro-->
+    
     <?php
-        } if($s_set == 'ok'){
+        } if($pag_set == 'ok'){ 
     ?>
     <div class="cc-selector col-sm-4">
-        <input id="mastercardd" style="display:block;" type="radio" name="payment_type" value="stripe"/>
-        <label class="drinkcard-cc" style="margin-bottom:0px; width:100%; overflow:hidden; height:200px;" for="mastercardd" id="customButtong" onclick="radio_check('mastercardd')">
-                <img src="<?php echo base_url(); ?>template/front/img/preview/payments/stripe.jpg" width="100%" height="100%" style=" text-align-last:center;" alt="<?php echo translate('stripe');?>" />
+        <input id="pagseguro" type="radio" style="display:block;" name="payment_type" value="pagseguro"/>
+        <label class="drinkcard-cc" style="margin-bottom:0px; width:100%; overflow:hidden; height:200px;" for="pagseguro" onclick="radio_check('pagseguro')">
+                <img src="<?php echo base_url(); ?>template/front/img/preview/payments/pagseguro.png" width="100%" height="100%" style=" text-align-last:center;" alt="" />
                
         </label>
     </div>
-    <script>
-		$(document).ready(function(e) {
-    		//<script src="https://js.stripe.com/v2/"><script>
-			//https://checkout.stripe.com/checkout.js
-			var handler = StripeCheckout.configure({
-				key: '<?php echo $this->db->get_where('business_settings' , array('type' => 'stripe_publishable'))->row()->value; ?>',
-				image: '<?php echo base_url(); ?>template/front/img/stripe.png',
-				token: function(token) {
-					// Use the token to create the charge with a server-side script.
-					// You can access the token ID with `token.id`
-					$('#cart_form').append("<input type='hidden' name='stripeToken' value='" + token.id + "' />");
-					if($( "#visa" ).length){
-						$( "#visa" ).prop( "checked", false );
-					}
-					if($( "#mastercard" ).length){
-						$( "#mastercard" ).prop( "checked", false );
-					}
-					$( "#mastercardd" ).prop( "checked", true );
-					notify('<?php echo translate('your_card_details_verified!'); ?>','success','bottom','right');
-					setTimeout(function(){
-						$('#cart_form').submit();
-					}, 500);
-				}
-			});
-	
-			$('#customButtong').on('click', function(e) {
-				// Open Checkout with further options
-				var total = $('#grand').html(); 
-				total = total.replace("<?php echo currency(); ?>", '');
-				//total = parseFloat(total.replace(",", ''));
-				total = total/parseFloat(<?php echo exchange(); ?>);
-				total = total*100;
-				handler.open({
-					name: '<?php echo $system_title; ?>',
-					description: '<?php echo translate('pay_with_stripe'); ?>',
-					amount: total
-				});
-				e.preventDefault();
-			});
-	
-			// Close Checkout on page navigation
-			$(window).on('popstate', function() {
-				handler.close();
-			});
-        });
-    </script>
+   
+    
     <?php
         } if($c_set == 'ok'){
 			if($this->crud_model->get_type_name_by_id('general_settings','68','value') == 'ok'){
