@@ -44,6 +44,10 @@ class Home extends CI_Controller
 		}
 		$this->config->cache_query();
 		$currency = $this->session->userdata('currency');
+        
+        //var_dump($currency);
+        //exit;
+        
 		if(!isset($currency)){
 			$this->session->set_userdata('currency',$this->db->get_where('business_settings', array('type' => 'home_def_currency'))->row()->value);
 		}
@@ -2265,7 +2269,7 @@ class Home extends CI_Controller
             
             if ($this->input->post('payment_type') == 'paypal') {
                 if ($para1 == 'go') {
-                    
+            
                     $data['buyer']             = $this->session->userdata('user_id');
                     $data['product_details']   = $product_details;
                     $data['shipping_address']  = json_encode($_POST);
@@ -2280,6 +2284,7 @@ class Home extends CI_Controller
                     $data['sale_datetime']     = time();
                     $data['delivary_datetime'] = '';
 					$data['data_venda']        = date('Y-m-d H:i:s');
+                    //$data['currency_code']     = currency_code();
                     $paypal_email              = $this->crud_model->get_type_name_by_id('business_settings', '1', 'value');
                     
                     $this->db->insert('sale', $data);
@@ -2308,6 +2313,10 @@ class Home extends CI_Controller
                     $this->paypal->add_field('no_note', 0);
                     $this->paypal->add_field('cmd', '_cart');
                     $this->paypal->add_field('upload', '1');
+                    
+                    //ALTERANDO  MOEDA DE USD PARA BRL
+                    $this->paypal->add_field('currency_code', currency_code());
+                    
                     $i = 1;
                     
                     foreach ($carted as $val) {
@@ -2326,6 +2335,11 @@ class Home extends CI_Controller
                     }
                     //$this->paypal->add_field('amount', $grand_total);
                     //$this->paypal->add_field('currency_code', currency_code());
+                    
+                            
+                    //var_dump(currency_code());
+                    //exit;
+                    
                     $this->paypal->add_field('custom', $sale_id);
                     $this->paypal->add_field('business', $paypal_email);
                     $this->paypal->add_field('notify_url', base_url() . 'index.php/home/paypal_ipn');
