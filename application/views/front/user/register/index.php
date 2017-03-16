@@ -43,6 +43,7 @@
                             </div>
                         </div>
                         <hr>
+                 
                         <div class="col-md-6">
                             <div class="form-group">
                                 <input class="form-control required" name="username" type="text" placeholder="<?php echo translate('first_name');?>">
@@ -78,24 +79,52 @@
                         </div>
                         <div class="col-md-12">
                             <div class="form-group">
-                                <input class="form-control required" name="address1" type="text" placeholder="<?php echo translate('address_line_1');?>">
+                                <input class="form-control required" name="address1" type="text" placeholder="Endereço">
                             </div>
                         </div>
                         <div class="col-md-12">
                             <div class="form-group">
-                                <input class="form-control required" name="address2" type="text" placeholder="<?php echo translate('address_line_2');?>">
+                                <input class="form-control required" name="address2" type="text" placeholder="Bairro">
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
-                                <input class="form-control required" type="text" name="city" placeholder="<?php echo translate('city');?>">
+                                <select class="form-control required arrow_down" id="cod_estados">
+                                    <option value="">Estado</option>
+                                                                   
+                                    <?php 
+                                    
+                                    foreach($locations as $loc){
+                                        
+                                    echo '<option value='.$loc['UF'].'>'.$loc['UF'].'</option>';    
+                                        
+                                    }
+                                    ?>
+                                </select>
+                                <!-- <input class="form-control required" type="text" name="state" placeholder="<?php echo translate('state');?>"> -->
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
-                                <input class="form-control required" type="text" name="state" placeholder="<?php echo translate('state');?>">
+                                <div class="form-group">
+                                    <select class="form-control required arrow_down" id="cod_cidades" name="cod_cidades">
+                                        <option value="">Cidade</option>
+                                   
+                                        <?php 
+                                    
+                                        /*foreach($locations_city as $city){
+
+                                        echo '<option value='.$city['Nome'].'>'.$city['Nome'].'</option>';    
+
+                                        }*/
+                                        ?>    
+                                        
+                                    </select>
+                                <!-- <input class="form-control required" type="text" name="city" placeholder="<?php echo translate('city');?>"> -->
+                                </div>                                
                             </div>
                         </div>
+                        
                         <div class="col-md-6">
                             <div class="form-group">
                                 <input class="form-control required" type="text" name="country" placeholder="<?php echo translate('country');?>">
@@ -154,3 +183,68 @@
         </div>
     </div>
 </section>
+
+<script>
+    
+$(function(){
+    
+    
+    $('#cod_estados').change(function(){
+		$.ajax({
+			type: 'GET',
+			url: '<?php echo base_url()."index.php/home/login_set/registration"; ?>',
+			data: {
+				uf: $('#cod_estados').val(),
+				
+			},
+            
+			dataType: 'json',
+            error: function(req, err){ console.log('Deu Bosta' + err); },
+			beforeSend: function(){
+				$('#cod_cidades').html('<option>Carregando...</option>');
+			},
+			success: function(data){
+                
+                console.log(data);
+                
+                $('#cod_cidades').html('');
+				$('#cod_cidades').append('<option>Selecione...</option>');
+                for(i = 0; i < data.Quant; i++){
+					$('#cod_cidades').append('<option value="'+data.Nome[i]+'">'+data.Nome[i]+'</option>');
+				}
+                
+				}
+			
+		});
+	
+    });    
+
+ });   
+    
+    
+/*$(document).ready(function(){
+    $('#cod_estados').change(function(){
+        
+        
+        var uf = $('#cod_estados').val();
+        
+        //alert(uf);
+        
+        $.get("<?php //echo base_url()."index.php/home/login_set/registration?uf"; ?>="+uf, function (data) {
+            
+            $("cod_cidades").find("option").remove();
+            $("cod_cidades").append(data);
+            //alert(data);
+            
+            $("#cod_cidades").html('<option>teste cidades</option>');
+            
+       });
+  
+    });
+});*/
+    
+//$('#cod_cidades').load('<?php //echo base_url()."index.php/home/login_set/registration?estado"; ?>='+$('#cod_estados').val());    
+    
+</script>
+
+

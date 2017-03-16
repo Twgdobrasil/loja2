@@ -2228,7 +2228,25 @@ class Crud_model extends CI_Model
        
     return $query->result_array();   
        
-   }    
+   } 
+    
+    //Montando Array de Cidades e UF
+    
+    function get_locations_state(){
+     
+    $query = $this->db->query('SELECT DISTINCT UF FROM locations ORDER BY UF');
+        
+    return $query->result_array();    
+        
+    }
+    
+    function get_locations_city($uf){
+     
+    $query = $this->db->query('SELECT * FROM locations WHERE UF = '."'$uf'");
+        
+    return array($query->result_array(), $query->num_rows());     
+        
+    }
 	
 } // Fim da Classe
 

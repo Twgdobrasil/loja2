@@ -1514,6 +1514,7 @@ class Home extends CI_Controller
     /* FUNCTION: Setting login page with facebook and google */
     function login_set($para1 = '', $para2 = '', $para3 = '')
     {
+               
         if ($this->session->userdata('user_login') == "yes") {
             redirect(base_url().'index.php/home/profile', 'refresh');
         }
@@ -1650,16 +1651,40 @@ class Home extends CI_Controller
                 $this->load->view('front/index', $page_data);
             }
         } elseif ($para1 == 'registration') {
+            
+        if(isset($_GET['uf'])){ 
+     
+            $uf = $_GET['uf'];
+                
+            
+            $locations_city = $this->crud_model->get_locations_city($uf);
+            $n = 0;
+            foreach($locations_city[0] as $city){
+
+                $result['Nome'][$n] = $city['Nome'];
+		        $n++;    
+                
+                    }
+            $result['Quant'] = $locations_city[1]; 
+            die(json_encode($result));
+                
+            }
+
+            
+            $page_data['locations'] = $this->crud_model->get_locations_state();
             $page_data['page_name'] = "user/register";
 			$page_data['asset_page'] = "register";
         	$page_data['page_title'] = translate('registration');
+            
             if($para2 == 'modal'){
                 $this->load->view('front/user/register/index', $page_data);
             } else {
                 $this->load->view('front/index', $page_data);
             }
+         
         }
     }
+        
     
     /* FUNCTION: Logout set */
     function logout()
