@@ -89,7 +89,7 @@
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
-                                <select class="form-control required arrow_down" id="cod_estados">
+                                <select class="form-control required arrow_down" id="cod_estados" name="state">
                                     <option value="">Estado</option>
                                                                    
                                     <?php 
@@ -107,18 +107,9 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <div class="form-group">
-                                    <select class="form-control required arrow_down" id="cod_cidades" name="cod_cidades">
+                                    <select class="form-control required arrow_down" id="cod_cidades" name="city">
                                         <option value="">Cidade</option>
-                                   
-                                        <?php 
-                                    
-                                        /*foreach($locations_city as $city){
-
-                                        echo '<option value='.$city['Nome'].'>'.$city['Nome'].'</option>';    
-
-                                        }*/
-                                        ?>    
-                                        
+                                
                                     </select>
                                 <!-- <input class="form-control required" type="text" name="city" placeholder="<?php echo translate('city');?>"> -->
                                 </div>                                
@@ -220,30 +211,7 @@ $(function(){
     });    
 
  });   
-    
-    
-/*$(document).ready(function(){
-    $('#cod_estados').change(function(){
-        
-        
-        var uf = $('#cod_estados').val();
-        
-        //alert(uf);
-        
-        $.get("<?php //echo base_url()."index.php/home/login_set/registration?uf"; ?>="+uf, function (data) {
-            
-            $("cod_cidades").find("option").remove();
-            $("cod_cidades").append(data);
-            //alert(data);
-            
-            $("#cod_cidades").html('<option>teste cidades</option>');
-            
-       });
   
-    });
-});*/
-    
-//$('#cod_cidades').load('<?php //echo base_url()."index.php/home/login_set/registration?estado"; ?>='+$('#cod_estados').val());    
     
 </script>
 
