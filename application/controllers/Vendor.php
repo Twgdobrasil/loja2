@@ -1591,7 +1591,7 @@ class Vendor extends CI_Controller
             redirect(base_url() . 'index.php/vendor');
         }
         if ($para1 == "cash_set") {
-            $val = '';
+            $val = $this->input->post('cash_set');
             if ($para2 == 'true') {
                 $val = 'ok';
             } else if ($para2 == 'false') {
@@ -1605,13 +1605,16 @@ class Vendor extends CI_Controller
             recache();
         }
         else if ($para1 == "paypal_set") {
-            $val = '';
+            
+            $val = $this->input->post('paypal_set');
+            
             if ($para2 == 'true') {
                 $val = 'ok';
             } else if ($para2 == 'false') {
                 $val = 'no';
             }
             echo $val;
+         
             $this->db->where('vendor_id', $this->session->userdata('vendor_id'));
             $this->db->update('vendor', array(
                 'paypal_set' => $val
@@ -1619,7 +1622,7 @@ class Vendor extends CI_Controller
             recache();
         }
         else if ($para1 == "pagseguro_set") {
-            $val = '';
+            $val = $this->input->post('pagseguro_set');
             if ($para2 == 'true') {
                 $val = 'ok';
             } else if ($para2 == 'false') {

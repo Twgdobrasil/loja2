@@ -22,11 +22,22 @@
                 ))->row()->stripe_details,true);
                 $stripe_publishable = $stripe_details['publishable'];
                 $stripe_secret =  $stripe_details['secret'];
+            
+            echo 'Email: '. $paypal.'<br>';
+            echo 'Paypal: ',$paypal_set.'<br>';
+            //echo 'Cash: '.$cash_set.'<br>';
+            echo 'Boleto: '.$stripe_set.'<br>';
+            //echo 'Boleto Detalhes: '.$stripe_details.'<br>';
+            echo 'Boleto Publicado: '.$stripe_publishable.'<br>';
+            echo 'Boleto Secret: '.$stripe_secret.'<br>';
+            
+            
+            
             ?>
             <div class="col-sm-12">
             <div class="panel panel-bordered-dark">
                 <?php
-                    echo form_open(base_url() . 'index.php/vendor/business_settings/set/', array(
+                    echo form_open(base_url() . 'index.php/vendor/business_settings/setiings/', array(
                         'class'     => 'form-horizontal',
                         'method'    => 'post',
                         'id'        => 'gen_set',
@@ -46,7 +57,6 @@
                                 </div>
                             </fieldset>                            
                         </div>
-
                         <div class="form-group">
                             <fieldset>
                                 <legend>Habilitar Paypal</legend>
@@ -103,7 +113,7 @@
                                         <div class="emails_config_pagamentos">
                                             <label class="col-sm-3 control-label">Sem juros até:</label>
                                                 <div class="col-sm-6">
-                                                    <select class="form-control unit required">
+                                                    <select class="form-control unit ">
                                                         <option value="">Selecione...</option>
                                                         <option value="">1x</option>
                                                         <option value="">2x</option>
@@ -116,7 +126,7 @@
                                                         <option value="">9x</option>
                                                         <option value="">10x</option>
                                                         <option value="">11x</option>
-                                                        <option value="">12x</option>
+                                                        <option value="">12x</option> 
                                                     </select>
                                                 </div>
                                         </div>
@@ -211,3 +221,16 @@
 
 </script>
 <script src="<?php echo base_url(); ?>template/back/js/custom/business.js"></script>
+<script>
+/*$(function(){
+    
+  $('#paypal_set').change(function(){
+     
+      alert ($('#paypal_set').val());
+      
+  }); 
+    
+});
+*/
+
+</script>
